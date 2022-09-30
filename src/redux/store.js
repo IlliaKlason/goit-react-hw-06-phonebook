@@ -14,6 +14,13 @@ import {
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 
+const middleware = getDefaultMiddleware =>
+  getDefaultMiddleware({
+    serializableCheck: {
+      ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }).concat(logger);
+
 const rootReducer = combineReducers({
   filter: filterReducer,
   contacts: contactsReducer,
@@ -24,13 +31,6 @@ const persistConfig = {
   storage,
   blacklist: ['filter'],
 };
-
-const middleware = getDefaultMiddleware =>
-  getDefaultMiddleware({
-    serializableCheck: {
-      ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }).concat(logger);
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
