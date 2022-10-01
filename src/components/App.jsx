@@ -9,53 +9,10 @@ import { Boxitem } from './ContactsList/ContactList.styled';
 import { ContactForm } from './Form';
 import { Filter } from './Filter';
 import { ContactList } from './ContactsList';
+import { useSelector } from 'react-redux';
 
 export function App() {
-  // const [contacts, setContacts] = useHookLS(
-  //   [
-  //     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  //     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  //     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  //     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  //   ],
-  //   []
-  // );
-
-  // const [filter, setFilter] = useState('');
-
-  // const addContact = ({ name, number }) => {
-  //   const normalizedName = name.toLowerCase();
-
-  //   const some = contacts.some(el => el.name.toLowerCase() === normalizedName);
-  //   if (some) {
-  //     return Notiflix.Notify.failure(` ${name} is already in contacts`);
-  //   }
-  //   const contact = {
-  //     id: nanoid(),
-  //     name,
-  //     number,
-  //   };
-
-  //   setContacts([contact, ...contacts]);
-  // };
-
-  // const handleFilterInput = e => {
-  //   setFilter(e.target.value);
-  // };
-
-  // const getFilteredContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter(contact => {
-  //     return contact.name.toLowerCase().includes(normalizedFilter);
-  //   });
-  // };
-
-  // const deleteContact = id => {
-  //   setContacts(contacts.filter(contact => contact.id !== id));
-  // };
-
-  // const contactsToShow = getFilteredContacts();
-
+  const filteredContacts = useSelector(state => state.contacts);
   return (
     <Box
       display="flex"
@@ -73,7 +30,7 @@ export function App() {
         />
       </div>
       {/* contacts.length */}
-      {true ? (
+      {filteredContacts.length > 0 ? (
         <div>
           <h2>Contacts</h2>
           <Boxitem
